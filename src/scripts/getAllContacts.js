@@ -3,11 +3,11 @@ import fs from 'fs/promises';
 
 export const getAllContacts = async () => {
     try {
-        // Read the contacts from the database file
-        const data = await fs.readFileSync(PATH_DB, 'utf8');
-        return JSON.parse(data);
-      } catch (err) {
-        console.error('Error reading database file:', err);
+        const prevContacts = await fs.readFile(PATH_DB);
+        const contacts = JSON.parse(prevContacts);
+        return contacts;
+      } catch (error) {
+        console.error("Помилка читання контактів", error);
         return [];
       }
 };
